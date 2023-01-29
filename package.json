@@ -1,7 +1,7 @@
 {
-  "name": "shoe-configurator",
+  "name": "kick-store",
   "version": "1.0.0",
-  "description": "A super small configurator that shows you how to make GLTF assets dynamic.",
+  "description": "A small concept shoe store with 3D renderings.",
   "keywords": [
     "valtio",
     "state",
