@@ -20,7 +20,8 @@ function Converse() {
     //ref.current.rotation.set(Math.PI/18, Math.PI/18, Math.PI / 6)
     ref.current.rotation.set(Math.PI/2, -Math.PI, Math.PI / 2)
     const t = state.clock.getElapsedTime()
-    ref.current.position.x = (1 + Math.sin(t / 1.5)) / 5
+    //ref.current.position.x = (1 + Math.sin(t / 1.5)) / 5
+    ref.current.position.x =  -0.10
     ref.current.position.y =  0.79
   })
 

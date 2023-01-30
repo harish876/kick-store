@@ -10,7 +10,7 @@ const antIcon = (
   />
 );
 const App = () =>{
-  <div className='loading'>
+  <div >
     <Spin />
  </div>
   }

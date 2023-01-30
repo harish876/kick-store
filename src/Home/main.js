@@ -6,6 +6,8 @@ import { Shapes, Categories, Box } from './Home'
 import state from './store'
 import '../styles.css'
 import Card from '../utils/Card/Card'
+import { Typography } from 'antd'
+const { Title } = Typography;
 
 function HtmlContent({ className, style, children, portal }) {
   const { size } = useThree()
@@ -47,19 +49,18 @@ export default function Main() {
         <Block factor={1.5} offset={0}>
           <Shapes />
           <HtmlContent portal={domContent}>
-            <div className="menu left" style={{ top: '1.55rem' }}>
-              <a href="/"><h2 style={{ fontSize: '2em', top: '4rem'}}>Kick Store</h2></a>
+            <div className="menu left" style={{ top: '0.79rem' }}>
+              <a href="/"><h2 style={{ fontSize: '2em'}}>Kick Store</h2></a>
             </div>
             <div className="menu right" style={{ top: '1.55rem' }}>
               <span>Login</span>
               <span>Sign up</span>
             </div>
             <div className="jumbo">
-              <h2 style={{zIndex:'-1'}}>
-                Next Gen
-                <br/>
+            <h1 style={{left:'1rem',zIndex:'-1'}}>
+                &nbsp;&nbsp;Next Gen<br/>
                 Shoe Store
-              </h2>
+              </h1>
               <Categories />
             </div>
           </HtmlContent>

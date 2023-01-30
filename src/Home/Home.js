@@ -124,7 +124,7 @@ export function Categories({ time = 3000 }) {
 
   return (
     <p style={{ height: 70 }}>
-      <a href="#" style={{ alignItems:'center',textAlign: 'left',width: 250 }} onClick={() => set((index + 1) % 2)}>
+      <a href="/" style={{ alignItems:'center',textAlign: 'left',paddingLeft:'30px',width: 300 }} onClick={() => set((index + 1) % 2)}>
         <div
           ref={ref}
           className="progress"

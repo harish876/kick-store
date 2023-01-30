@@ -11,7 +11,6 @@ import { get } from "lodash"
 export default function RenderModel(props) {
 
     const key = get(props,'props',"NewBalance997")
-    console.log(key)
     return (
         <>
             {['NewBalance997'].includes(key) &&

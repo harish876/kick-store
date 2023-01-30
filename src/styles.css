@@ -299,11 +299,12 @@ h1 {
 h2 {
   font-family: 'Inter', sans-serif;
   font-style: normal;
-  font-weight: 900;
+  text-align: center;
+  font-weight: 600;
   color: #272730;
   font-size: 62px;
+  letter-spacing: -4px;
   line-height: 62px;
-  letter-spacing: -2px;
   margin-top: 0;
   margin-bottom: 3rem;
 }
@@ -410,6 +411,7 @@ p {
   position: absolute;
   top: 4rem;
   left: 4rem;
+  align-items: baseline;
 }
 
 .menu.right {
@@ -444,18 +446,17 @@ p {
   transform: translate3d(-50%, -40%, 0);
   display: flex;
   flex-direction: column;
-  align-items: left;
-  min-width: 380px;
+  align-items: center;
+  min-width: 800px;
 }
-
-.jumbo h1 {
-  width: 0;
+.jumbo h1{
+  margin-left: 20px;
 }
 
 .jumbo p {
   line-height: 200%;
   color: rgba(0, 0, 0, 0.75);
-  text-align: left;
+  text-align: center;
   margin-bottom: 1.5rem;
 }
 
@@ -512,11 +513,16 @@ p {
     top: 2rem;
     right: 2rem;
   }
+  .menu.left{
+    top: 2rem;
+    left: 2rem;
+  }
   .jumbo h1 {
-    font-size: 46px;
-    line-height: 46px;
-    letter-spacing: 26px;
-    margin-left: 26px;
+    font-size: 50px;
+  }
+  h2{
+    text-align: center;
+    font-size: 40px;
   }
 }
 
