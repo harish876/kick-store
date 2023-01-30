@@ -14,7 +14,6 @@ function Jordans() {
     const ref = useRef()
     const snap = useSnapshot(state)
     const { nodes, materials } = useGLTF("air_jordan_1.glb")
-    console.log(nodes,materials)
     const [hovered, set] = useState(null)
   
     useFrame((state) => {
