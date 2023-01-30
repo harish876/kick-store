@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { useGLTF, ContactShadows, Environment, OrbitControls } from "@react-three/drei"
 import { HexColorPicker } from "react-colorful"
-import { proxy, useSnapshot } from "valtio"
+import { proxy, useSnapshot, subscribe } from "valtio"
 import { Vector3 } from "three"
 
 const state = proxy({
@@ -18,6 +18,8 @@ const state = proxy({
       patch: "#ffffff",
     },
 })
+
+//subscribe(state, () => console.log('state.obj has changed to', state.items))
 
 function Shoe() {
     const ref = useRef()
@@ -59,11 +61,17 @@ function Shoe() {
     )
   }
   
-  function Picker() {
+  function Picker({chooseCustomModel}) {
     const snap = useSnapshot(state)
     return (
       <div style={{ display: snap.current ? "block" : "none" }}>
-        <HexColorPicker className="picker" color={snap.items[snap.current]} onChange={(color) => (state.items[snap.current] = color)} />
+        <HexColorPicker 
+          className="picker" 
+          color={snap.items[snap.current]} 
+          onChange={(color) => {
+            state.items[snap.current] = color
+            chooseCustomModel(state.items)
+          }} />
         <h1>{snap.current}</h1>
       </div>
     )
@@ -79,7 +87,7 @@ function Shoe() {
     })
   }
   
-  export default function ShoeModel() {
+  export default function ShoeModel({chooseCustomModel}) {
     return (
       <>
         <Canvas shadows camera={{ position: [0, 0, 4], fov: 50 }}>
@@ -91,7 +99,9 @@ function Shoe() {
           <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enablePan={false} />
           <Rig />
         </Canvas>
-        <Picker />
+        <Picker 
+            chooseCustomModel={chooseCustomModel}
+          />
       </>
     )
   }

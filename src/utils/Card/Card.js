@@ -16,12 +16,25 @@ export default function Card() {
   const addKart = () => {
     if (size) {
       setData({ ...modelInfo, size })
+      if(['Fila'].includes(key))
+      {
+        setSize(null)
+        return customModelSuccess()
+      }
       success()
       setSize(null)
     } else {
       error()
     }
   }
+
+  const customModelSuccess = () => {
+    messageApi.open({
+      type: "success",
+      content: `Customized ${name} Shoe Added to Kart`,
+    })
+  }
+
   const success = () => {
     messageApi.open({
       type: "success",
@@ -39,8 +52,25 @@ export default function Card() {
   const [modelInfo, setModelInfo] = useState(defaultModel)
   const [data, setData] = useState(modelInfo)
   const [size, setSize] = useState(null)
+  const [customModel, setCustomModel] = useState({
+    key:'filaCustom',
+    laces: "#ffffff",
+    mesh: "#ffffff",
+    caps: "#ffffff",
+    inner: "#ffffff",
+    sole: "#ffffff",
+    stripes: "#ffffff",
+    band: "#ffffff",
+    patch: "#ffffff",
+  });
+
+  const chooseCustomModel = (model) => {
+    const { laces ,mesh,caps,inner,sole,stripes,band,patch} = model
+    setCustomModel({...customModel,laces,mesh,caps,inner,sole,stripes,band,patch});
+  };
+
   const [messageApi, contextHolder] = message.useMessage()
-  const { key, name, color, watermark, heading, subHeading, description, price } = modelInfo
+  const { key, name, color, primary, watermark, heading, subHeading, description, price } = modelInfo
   return (
     <div class="container">
       {contextHolder}
@@ -53,7 +83,10 @@ export default function Card() {
           <a href="./" class="share">
             <ShareAltOutlined />
           </a>
-          <RenderModel props={key} />
+          <RenderModel 
+            props={key} 
+            chooseCustomModel={chooseCustomModel}
+          />
         </div>
         <div class="info">
           <div class="shoeName">
@@ -124,28 +157,43 @@ export default function Card() {
           <div class="size-container">
             <h3 class="title">size</h3>
             <div class="sizes">
-              <span onClick={() => handleSizeClick(7)} class="size">
+              <span
+                style={size === 7 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
+                onClick={() => handleSizeClick(7)}
+                class="size">
                 7
               </span>
-              <span onClick={() => handleSizeClick(8)} class="size">
+              <span
+                style={size === 8 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
+                onClick={() => handleSizeClick(8)}
+                class="size">
                 8
               </span>
-              <span onClick={() => handleSizeClick(9)} class="size">
+              <span
+                style={size === 9 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
+                onClick={() => handleSizeClick(9)}
+                class="size">
                 9
               </span>
-              <span onClick={() => handleSizeClick(10)} class="size">
+              <span
+                style={size === 10 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
+                onClick={() => handleSizeClick(10)}
+                class="size">
                 10
               </span>
-              <span onClick={() => handleSizeClick(11)} class="size">
+              <span
+                style={size === 11 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
+                onClick={() => handleSizeClick(11)}
+                class="size">
                 11
               </span>
             </div>
           </div>
           <div class="buy-price">
-            <a href="#" onClick={addKart}>
+            <div className="button "href="#" onClick={addKart} style={{backgroundColor:`${primary}`,color:"whitesmoke"}}>
               <ShoppingCartOutlined />
               Add to cart
-            </a>
+            </div>
             <div class="price">
               <DollarOutlined />
               <h1>{price}</h1>

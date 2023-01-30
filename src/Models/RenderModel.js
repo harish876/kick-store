@@ -35,7 +35,9 @@ export default function RenderModel(props) {
 
             {['Fila'].includes(key) &&
             <Suspense fallback={<Loading />}>
-                <ShoeModel />
+                <ShoeModel 
+                    chooseCustomModel={props.chooseCustomModel}
+                />
             </Suspense>}
         </>
     );
