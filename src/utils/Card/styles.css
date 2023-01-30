@@ -52,6 +52,8 @@
 a{
     color: inherit;
     text-decoration: none;
+    padding: 3px;
+    cursor: pointer;
 
 }
 @keyframes width{
@@ -111,10 +113,12 @@ a{
     text-decoration: none;
     color: var(--primary);
     transition: .5s;
-    padding: 2.5px;
+    padding: 3.5px;
+    cursor: pointer;
 }
 
 .share:hover{
+    cursor: pointer;
     transform: scale(1.1);
 }
 

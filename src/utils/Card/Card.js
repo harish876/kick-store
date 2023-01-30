@@ -3,7 +3,7 @@ import "./styles.css"
 import { ShoppingCartOutlined, ShareAltOutlined, DollarOutlined } from "@ant-design/icons"
 import RenderModel from "../../Models/RenderModel"
 import { shoeData } from "../data"
-import { Tag, Tooltip, message } from "antd"
+import { Tag, Tooltip, message, Radio } from "antd"
 
 const defaultModel = shoeData["NewBalance"]
 export default function Card() {
@@ -18,10 +18,8 @@ export default function Card() {
       setData({ ...modelInfo, size })
       success()
       setSize(null)
-    }
-    else
-    {
-       error();
+    } else {
+      error()
     }
   }
   const success = () => {
@@ -33,14 +31,14 @@ export default function Card() {
 
   const error = () => {
     messageApi.open({
-      type: 'error',
-      content: 'Please select a Shoe Size.',
-    });
-  };
+      type: "error",
+      content: "Please select a Shoe Size.",
+    })
+  }
 
   const [modelInfo, setModelInfo] = useState(defaultModel)
   const [data, setData] = useState(modelInfo)
-  const [size, setSize] = useState(null) 
+  const [size, setSize] = useState(null)
   const [messageApi, contextHolder] = message.useMessage()
   const { key, name, color, watermark, heading, subHeading, description, price } = modelInfo
   return (
@@ -126,10 +124,7 @@ export default function Card() {
           <div class="size-container">
             <h3 class="title">size</h3>
             <div class="sizes">
-              <span 
-                //style={{backgroundColor:`${color}`,color:"whitesmoke"}}
-                onClick={() => handleSizeClick(7)} 
-                class="size">
+              <span onClick={() => handleSizeClick(7)} class="size">
                 7
               </span>
               <span onClick={() => handleSizeClick(8)} class="size">

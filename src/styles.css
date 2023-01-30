@@ -409,9 +409,8 @@ p {
 
 .menu.left {
   position: absolute;
-  top: 4rem;
-  left: 4rem;
-  align-items: baseline;
+  top: 2rem;
+  left: 2rem;
 }
 
 .menu.right {

@@ -49,7 +49,7 @@ export default function Main() {
         <Block factor={1.5} offset={0}>
           <Shapes />
           <HtmlContent portal={domContent}>
-            <div className="menu left" style={{ top: '0.79rem' }}>
+            <div className="menu left" style={{ top: '-1rem' }}>
               <a href="/"><h2 style={{ fontSize: '2em'}}>Kick Store</h2></a>
             </div>
             <div className="menu right" style={{ top: '1.55rem' }}>
