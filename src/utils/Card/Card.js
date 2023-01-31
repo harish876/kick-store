@@ -3,28 +3,45 @@ import "./styles.css"
 import { ShoppingCartOutlined, ShareAltOutlined, DollarOutlined } from "@ant-design/icons"
 import RenderModel from "../../Models/RenderModel"
 import { shoeData } from "../data"
-import { Tag, Tooltip, message, Radio } from "antd"
+import { Tag, Tooltip, message, Modal } from "antd"
 
 const defaultModel = shoeData["NewBalance"]
-export default function Card() {
+export default function Card({ getKartData }) {
+  const [modelInfo, setModelInfo] = useState(defaultModel)
+  const [data, setData] = useState(modelInfo)
+  const [size, setSize] = useState(null)
+  const [customModel, setCustomModel] = useState({
+    key: "filaCustom",
+    laces: "#ffffff",
+    mesh: "#ffffff",
+    caps: "#ffffff",
+    inner: "#ffffff",
+    sole: "#ffffff",
+    stripes: "#ffffff",
+    band: "#ffffff",
+    patch: "#ffffff",
+  })
+  const [messageApi, contextHolder] = message.useMessage()
+  const { key, name, color, primary, watermark, heading, subHeading, description, price } = modelInfo
+
   const changeModelInfo = (key) => {
     setModelInfo(shoeData[`${key}`])
   }
   const handleSizeClick = (userSize) => {
-    setSize(userSize)
+    setModelInfo((prevVal) => ({ ...prevVal, size: userSize }))
   }
   const addKart = () => {
-    if (size) {
-      setData({ ...modelInfo, size })
-      if(['Fila'].includes(key))
-      {
-        setSize(null)
+    if (modelInfo.size) {
+      if (["Fila"].includes(key)) {
+        setModelInfo((prevVal) => ({ ...prevVal, customModel }))
+        getKartData(modelInfo)
         return customModelSuccess()
+      } else {
+        getKartData(modelInfo)
+        return success()
       }
-      success()
-      setSize(null)
     } else {
-      error()
+      return error()
     }
   }
 
@@ -48,29 +65,12 @@ export default function Card() {
       content: "Please select a Shoe Size.",
     })
   }
-
-  const [modelInfo, setModelInfo] = useState(defaultModel)
-  const [data, setData] = useState(modelInfo)
-  const [size, setSize] = useState(null)
-  const [customModel, setCustomModel] = useState({
-    key:'filaCustom',
-    laces: "#ffffff",
-    mesh: "#ffffff",
-    caps: "#ffffff",
-    inner: "#ffffff",
-    sole: "#ffffff",
-    stripes: "#ffffff",
-    band: "#ffffff",
-    patch: "#ffffff",
-  });
-
   const chooseCustomModel = (model) => {
-    const { laces ,mesh,caps,inner,sole,stripes,band,patch} = model
-    setCustomModel({...customModel,laces,mesh,caps,inner,sole,stripes,band,patch});
-  };
+    const { laces, mesh, caps, inner, sole, stripes, band, patch } = model
+    console.log({ ...customModel, laces, mesh, caps, inner, sole, stripes, band, patch })
+    setCustomModel({ ...customModel, laces, mesh, caps, inner, sole, stripes, band, patch })
+  }
 
-  const [messageApi, contextHolder] = message.useMessage()
-  const { key, name, color, primary, watermark, heading, subHeading, description, price } = modelInfo
   return (
     <div class="container">
       {contextHolder}
@@ -83,10 +83,7 @@ export default function Card() {
           <a href="./" class="share">
             <ShareAltOutlined />
           </a>
-          <RenderModel 
-            props={key} 
-            chooseCustomModel={chooseCustomModel}
-          />
+          <RenderModel props={key} chooseCustomModel={chooseCustomModel} />
         </div>
         <div class="info">
           <div class="shoeName">
@@ -158,31 +155,31 @@ export default function Card() {
             <h3 class="title">size</h3>
             <div class="sizes">
               <span
-                style={size === 7 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
+                style={modelInfo.size === 7 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
                 onClick={() => handleSizeClick(7)}
                 class="size">
                 7
               </span>
               <span
-                style={size === 8 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
+                style={modelInfo.size === 8 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
                 onClick={() => handleSizeClick(8)}
                 class="size">
                 8
               </span>
               <span
-                style={size === 9 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
+                style={modelInfo.size === 9 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
                 onClick={() => handleSizeClick(9)}
                 class="size">
                 9
               </span>
               <span
-                style={size === 10 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
+                style={modelInfo.size === 10 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
                 onClick={() => handleSizeClick(10)}
                 class="size">
                 10
               </span>
               <span
-                style={size === 11 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
+                style={modelInfo.size === 11 ? { backgroundColor: `${primary}`, color: "whitesmoke" } : {}}
                 onClick={() => handleSizeClick(11)}
                 class="size">
                 11
@@ -190,7 +187,11 @@ export default function Card() {
             </div>
           </div>
           <div class="buy-price">
-            <div className="button "href="#" onClick={addKart} style={{backgroundColor:`${primary}`,color:"whitesmoke"}}>
+            <div
+              className="button "
+              href="#"
+              onClick={addKart}
+              style={{ backgroundColor: `${primary}`, color: "whitesmoke", transition: "background-color 0.5s ease" }}>
               <ShoppingCartOutlined />
               Add to cart
             </div>

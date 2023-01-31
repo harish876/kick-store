@@ -40,14 +40,14 @@ const shoeData = {
         primary:'#f50',
         watermark:'Nike',
         heading:`Nike Air Jordan 1's`,
-        subHeading:'Goat Shoes?',
+        subHeading:`🐐 Shoes?`,
         description:`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.`,
         price:'489.99'
     },
     'Fila':{
         key:'Fila',
         name:'Fila Runners',
-        color:'',
+        color:'red',
         primary:'orange',
         watermark:'Custom',
         heading:`Fila Customizable Shoes.`,
