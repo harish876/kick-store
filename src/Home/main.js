@@ -6,9 +6,11 @@ import { Shapes, Categories, Box } from "./Home"
 import state from "./store"
 import "../styles.css"
 import Card from "../utils/Card/Card"
-import { FloatButton, Modal } from "antd"
-import { ShoppingCartOutlined , CheckCircleOutlined} from "@ant-design/icons"
+import { isEmpty } from "lodash"
+import { FloatButton, Modal, notification,Drawer,Timeline } from "antd"
+import { ShoppingCartOutlined } from "@ant-design/icons"
 import Kart from "../utils/Kart/Kart"
+import { successMessage, emptyMessage } from '../utils/data'
 
 function HtmlContent({ className, style, children, portal }) {
   const { size } = useThree()
@@ -37,12 +39,26 @@ export default function Main() {
   useEffect(() => void onScroll({ target: scrollArea.current }), [])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [kartData, setKartData] = useState([])
+  const [timeLineOpen, setTimeLineOpen] = useState(false);
+  const showDrawer = () => {
+    setTimeLineOpen(true);
+  };
+  const onClose = () => {
+    setTimeLineOpen(false);
+  };
+  const [api, contextHolder] = notification.useNotification();
+  const openNotificationWithIcon = (type,message,description) => {
+    api[type]({message,description});
+  };
 
   const showModal = () => {
     setIsModalOpen(true)
   }
   const handleOk = () => {
     setIsModalOpen(false)
+    ! isEmpty(kartData) 
+    ? openNotificationWithIcon('success',successMessage.message,successMessage.description) 
+    : openNotificationWithIcon('info',emptyMessage.message,emptyMessage.description)
   }
   const handleCancel = () => {
     setIsModalOpen(false)
@@ -50,14 +66,22 @@ export default function Main() {
   const getKartData = (data) => {
     setKartData(prevVal => [...prevVal, data])
   }
-  const editAttributes = (selectedId,quantity,basePrice) => {
-    setKartData(kartState => kartState.map( item => item.id === selectedId ? {...item,quantity,price:basePrice*quantity} : item ))
+  const editAttributes = (action,selectedId,quantity,basePrice) => {
+    if(['changeQuantity'].includes(action))
+    {
+      setKartData(kartState => kartState.map( item => item.id === selectedId ? {...item,quantity,price:basePrice*quantity} : item ))
+    }
+    else if(['delete'].includes(action))
+    {
+      setKartData(kartState => kartState.filter(item => item.id !== selectedId));
+    }
   }
   const openKart = () => {
     showModal()
   }
   return (
     <>
+      {contextHolder}
       <FloatButton
         icon={<ShoppingCartOutlined />}
         onClick={openKart}
@@ -65,6 +89,20 @@ export default function Main() {
         style={{
           color: "wheat",
           right: 24,
+          width: 60,
+          height: 60,
+        }}
+      />
+      <FloatButton
+        icon={
+        <img style={{height:'20px',width:'20px',display:'flex',justifyContent:'center',alignItems:'center',textAlign:'center'}}
+        src="https://img.icons8.com/cotton/64/null/track-order.png"/>
+        }
+        onClick={showDrawer}
+        tooltip={<div>Track Order Status</div>}
+        style={{
+          color: "wheat",
+          left: 24,
           width: 60,
           height: 60,
         }}
@@ -118,6 +156,14 @@ export default function Main() {
               >
             <Kart kartData={kartData?kartData:[]} text="Test Props" editAttributes={editAttributes}/>
             </Modal>
+            <Drawer title="Track your Order: Order - 2145677" placement="right" onClose={onClose} open={timeLineOpen}>
+            <Timeline mode="alternate">
+              <Timeline.Item>Order Placed on  2015-09-01</Timeline.Item>
+              <Timeline.Item>Order Dispatched on 2015-09-01</Timeline.Item>
+              <Timeline.Item>Order Shipped to location 2015-09-01</Timeline.Item>
+              <Timeline.Item color="green">Order Recieved 2015-09-01</Timeline.Item>
+          </Timeline>
+          </Drawer>
           </Html>
         </Block>
       </Canvas>

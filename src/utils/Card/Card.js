@@ -4,6 +4,7 @@ import { ShoppingCartOutlined, ShareAltOutlined, DollarOutlined } from "@ant-des
 import RenderModel from "../../Models/RenderModel"
 import { shoeData } from "../data"
 import { Tag, Tooltip, message, Modal } from "antd"
+import {v4 as uuidv4} from 'uuid';
 
 const defaultModel = shoeData["NewBalance"]
 export default function Card({ getKartData }) {
@@ -30,7 +31,8 @@ export default function Card({ getKartData }) {
   }
  
   const addKart = () => {
-    const updatedModelInfo = {...modelInfo,id:`${modelInfo.name}-${modelInfo.size}`}
+    let transactionId= uuidv4();
+    const updatedModelInfo = {...modelInfo,id:transactionId}
     if (updatedModelInfo.size) {
       if (["Fila"].includes(key)) {
         getKartData(updatedModelInfo)

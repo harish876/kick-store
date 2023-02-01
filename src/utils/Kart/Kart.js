@@ -1,7 +1,8 @@
-import React, {useState,useEffect} from "react"
+import React from "react"
 import { isEmpty } from "lodash"
 import { Collapse, InputNumber, Space, Tag, theme, Empty } from "antd"
 import { EditOutlined, CheckCircleTwoTone, DeleteOutlined, CaretRightOutlined, DollarCircleFilled } from "@ant-design/icons"
+
 const { Panel } = Collapse
 
 function Kart({kartData,editAttributes}) {
@@ -36,18 +37,15 @@ function Kart({kartData,editAttributes}) {
       </>
     )
   }
-  const onChange =(id,qty,price) =>{
-    editAttributes(id,qty,price)
+  const onChange =(action,id,qty,price) =>{
+    editAttributes(action,id,qty,price)
   }
   const genExtra = (id,price) => (
     <Space size="middle">
-      <EditOutlined
-        onClick={(event) => {
-        }}
-      />
-      <DeleteOutlined />
+      <EditOutlined onClick={() => {onChange("edit",id,1,price)}}/> {/* yet to implement */}
+      <DeleteOutlined onClick={() => {onChange("delete",id,0,price)}}/>
       <InputNumber style={{ width: "95px" }} addonBefore={<div>Qty</div>} size="small" min={0} max={10} defaultValue={1}
-          onChange={qty => onChange(id,qty,price)}
+          onChange={qty => qty>0 ? onChange("changeQuantity",id,qty,price):onChange("delete",id,0,price)}
       />
       <CheckCircleTwoTone twoToneColor="#52c41a" />
     </Space>
