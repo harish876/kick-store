@@ -28,6 +28,7 @@
     "react-scripts": "5.0.1",
     "react-spring": "^9.6.1",
     "three": "0.147.0",
+    "uuid": "^9.0.0",
     "valtio": "1.7.6"
   },
   "devDependencies": {

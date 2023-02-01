@@ -47,9 +47,10 @@ export default function Main() {
   }
   const [kartData, setKartData] = useState([])
   const getKartData = (data) => {
-    setKartData((prevVal) => [...prevVal, data])
+    setKartData(prevVal => [...prevVal, data])
   }
   const openKart = () => {
+    //console.log(kartData)
     showModal()
   }
   return (
@@ -104,11 +105,13 @@ export default function Main() {
             <h2>Scroll Down to explore shoes</h2>
             <Card getKartData={getKartData} />
             <Modal 
+              sz="xl"
               title="Cart" 
               open={isModalOpen} 
               onOk={handleOk} 
               onCancel={handleCancel}
               okText="Checkout"
+              width={700}
               //okButtonProps={icon={<DownloadOutlined />}}
               >
             <Kart props={kartData}/>

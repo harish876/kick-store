@@ -4,12 +4,11 @@ import { ShoppingCartOutlined, ShareAltOutlined, DollarOutlined } from "@ant-des
 import RenderModel from "../../Models/RenderModel"
 import { shoeData } from "../data"
 import { Tag, Tooltip, message, Modal } from "antd"
+import {v4 as uuidv4} from 'uuid';
 
 const defaultModel = shoeData["NewBalance"]
 export default function Card({ getKartData }) {
   const [modelInfo, setModelInfo] = useState(defaultModel)
-  const [data, setData] = useState(modelInfo)
-  const [size, setSize] = useState(null)
   const [customModel, setCustomModel] = useState({
     key: "filaCustom",
     laces: "#ffffff",
@@ -25,23 +24,24 @@ export default function Card({ getKartData }) {
   const { key, name, color, primary, watermark, heading, subHeading, description, price } = modelInfo
 
   const changeModelInfo = (key) => {
-    setModelInfo(shoeData[`${key}`])
+    setModelInfo({...shoeData[`${key}`]})
   }
   const handleSizeClick = (userSize) => {
     setModelInfo((prevVal) => ({ ...prevVal, size: userSize }))
   }
+ 
   const addKart = () => {
-    if (modelInfo.size) {
+    const updatedModelInfo = {...modelInfo,id:`${modelInfo.name}+${modelInfo.size}`}
+    if (updatedModelInfo.size) {
       if (["Fila"].includes(key)) {
-        setModelInfo((prevVal) => ({ ...prevVal, customModel }))
-        getKartData(modelInfo)
-        return customModelSuccess()
+        getKartData(updatedModelInfo)
+        customModelSuccess()
       } else {
-        getKartData(modelInfo)
-        return success()
+        getKartData(updatedModelInfo)
+        success()
       }
     } else {
-      return error()
+        error()
     }
   }
 
@@ -67,8 +67,8 @@ export default function Card({ getKartData }) {
   }
   const chooseCustomModel = (model) => {
     const { laces, mesh, caps, inner, sole, stripes, band, patch } = model
-    console.log({ ...customModel, laces, mesh, caps, inner, sole, stripes, band, patch })
-    setCustomModel({ ...customModel, laces, mesh, caps, inner, sole, stripes, band, patch })
+    setCustomModel(prevVal => ({...prevVal,laces, mesh, caps, inner, sole, stripes, band, patch }))
+    setModelInfo((prevVal) => ({ ...prevVal, customModel }))
   }
 
   return (

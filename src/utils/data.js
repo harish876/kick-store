@@ -9,7 +9,8 @@ const shoeData = {
         heading:`New Balance 997's`,
         subHeading:'Dad Shoes',
         description:`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.`,
-        price:'189.99'
+        price:189,
+        quantity:1
     },
     'Vans':{
         key:'Vans',
@@ -20,7 +21,9 @@ const shoeData = {
         heading:`Classic Vans`,
         subHeading:'Son wears these Shoes',
         description:`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.`,
-        price:'289.99'
+        price:289,
+        quantity:1
+        
     },
     'NikeAirPegasus':{
         key:'NikeAirPegasus',
@@ -31,7 +34,8 @@ const shoeData = {
         heading:`Nike Pegasus`,
         subHeading:'Nice Running Shoes',
         description:`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.`,
-        price:'389.99'
+        price:389,
+        quantity:1
     },
     'Jordan':{
         key:'Jordan',
@@ -42,7 +46,8 @@ const shoeData = {
         heading:`Nike Air Jordan 1's`,
         subHeading:`🐐 Shoes?`,
         description:`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.`,
-        price:'489.99'
+        price:489,
+        quantity:1
     },
     'Fila':{
         key:'Fila',
@@ -53,7 +58,8 @@ const shoeData = {
         heading:`Fila Customizable Shoes.`,
         subHeading:'Click on the model to select colors',
         description:`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.`,
-        price:'89.99'
+        price:89,
+        quantity:1
     },
 }
 
