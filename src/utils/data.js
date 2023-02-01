@@ -67,7 +67,17 @@ const shoeData = {
         quantity:1
     },
 }
+const successMessage = {
+    message:'Order Placed Successfully',
+    description:'Order Number 2145677. Mail has been sent to your email with invoice details. Thanks for Shopping with us'
+  }
+const emptyMessage = {
+    message:'No Orders Placed yet',
+    description:'Select some cool sneakers dude!'
+}
 
 module.exports ={
-    shoeData
+    shoeData,
+    successMessage,
+    emptyMessage
 }
