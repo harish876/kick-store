@@ -10,6 +10,7 @@ const shoeData = {
         subHeading:'Dad Shoes',
         description:`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.`,
         price:189,
+        basePrice:189,
         quantity:1
     },
     'Vans':{
@@ -22,6 +23,7 @@ const shoeData = {
         subHeading:'Son wears these Shoes',
         description:`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.`,
         price:289,
+        basePrice:289,
         quantity:1
         
     },
@@ -35,6 +37,7 @@ const shoeData = {
         subHeading:'Nice Running Shoes',
         description:`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.`,
         price:389,
+        basePrice:389,
         quantity:1
     },
     'Jordan':{
@@ -47,6 +50,7 @@ const shoeData = {
         subHeading:`🐐 Shoes?`,
         description:`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.`,
         price:489,
+        basePrice:489,
         quantity:1
     },
     'Fila':{
@@ -59,6 +63,7 @@ const shoeData = {
         subHeading:'Click on the model to select colors',
         description:`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.`,
         price:89,
+        basePrice:89,
         quantity:1
     },
 }

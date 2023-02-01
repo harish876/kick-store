@@ -6,7 +6,7 @@ import { Shapes, Categories, Box } from "./Home"
 import state from "./store"
 import "../styles.css"
 import Card from "../utils/Card/Card"
-import { FloatButton, Badge, Avatar, Modal , Button} from "antd"
+import { FloatButton, Modal } from "antd"
 import { ShoppingCartOutlined , CheckCircleOutlined} from "@ant-design/icons"
 import Kart from "../utils/Kart/Kart"
 
@@ -36,6 +36,8 @@ export default function Main() {
   const onScroll = (e) => (state.top.current = e.target.scrollTop)
   useEffect(() => void onScroll({ target: scrollArea.current }), [])
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [kartData, setKartData] = useState([])
+
   const showModal = () => {
     setIsModalOpen(true)
   }
@@ -45,12 +47,13 @@ export default function Main() {
   const handleCancel = () => {
     setIsModalOpen(false)
   }
-  const [kartData, setKartData] = useState([])
   const getKartData = (data) => {
     setKartData(prevVal => [...prevVal, data])
   }
+  const editAttributes = (selectedId,quantity,basePrice) => {
+    setKartData(kartState => kartState.map( item => item.id === selectedId ? {...item,quantity,price:basePrice*quantity} : item ))
+  }
   const openKart = () => {
-    //console.log(kartData)
     showModal()
   }
   return (
@@ -112,9 +115,8 @@ export default function Main() {
               onCancel={handleCancel}
               okText="Checkout"
               width={700}
-              //okButtonProps={icon={<DownloadOutlined />}}
               >
-            <Kart props={kartData}/>
+            <Kart kartData={kartData?kartData:[]} text="Test Props" editAttributes={editAttributes}/>
             </Modal>
           </Html>
         </Block>

@@ -4,10 +4,9 @@ import { Collapse, InputNumber, Space, Tag, theme, Empty } from "antd"
 import { EditOutlined, CheckCircleTwoTone, DeleteOutlined, CaretRightOutlined, DollarCircleFilled } from "@ant-design/icons"
 const { Panel } = Collapse
 
-function Kart(props) {
-  const { props: items } = props
+function Kart({kartData,editAttributes}) {
+  const items  = kartData
   const { token } = theme.useToken()
-  const [globalKartDetails,setGlobalKartDetails] = useState(items.map(item => {return item}))
 
   const panelStyle = {
     marginBottom: 24,
@@ -15,24 +14,6 @@ function Kart(props) {
     borderRadius: token.borderRadiusLG,
     border: "none",
   }
-
-  useEffect(()=>{
-    const initialValue = items.map(item => {return item})
-    const temp = items.filter(({id})=> !(globalKartDetails.map(({id:itemId}) => {return itemId}).includes(id)))
-    setGlobalKartDetails(initialValue,...temp)
-  },[items])
-
-  const updateGlobalKart = (selectedId,shoePrice,quantity) =>{
-
-    const computePrice = quantity*shoePrice
-    const otherValues = globalKartDetails.filter(({id}) => id != selectedId)
-    const selected = {...globalKartDetails.filter(({id}) => id === selectedId)[0],quantity,price:computePrice}
-    setGlobalKartDetails([selected,...otherValues])
-  }
-  const handleUpdateState = (selectedId,shoePrice,quantity) =>{
-      updateGlobalKart(selectedId,shoePrice,quantity)
-  }
-
   const RenderCustomDetails = (props) => {
     const { props: attributes } = props
     delete attributes.key
@@ -55,19 +36,18 @@ function Kart(props) {
       </>
     )
   }
-  const genExtra = (id,shoePrice,quantity) => (
+  const onChange =(id,qty,price) =>{
+    editAttributes(id,qty,price)
+  }
+  const genExtra = (id,price) => (
     <Space size="middle">
       <EditOutlined
         onClick={(event) => {
         }}
       />
       <DeleteOutlined />
-      <InputNumber style={{ width: "95px" }} addonBefore={<div>Qty</div>} size="small" min={0} max={10} defaultValue={1} value={quantity}
-          onChange={(qty) => {
-            {
-                handleUpdateState(id,shoePrice,qty)
-            }
-        }}
+      <InputNumber style={{ width: "95px" }} addonBefore={<div>Qty</div>} size="small" min={0} max={10} defaultValue={1}
+          onChange={qty => onChange(id,qty,price)}
       />
       <CheckCircleTwoTone twoToneColor="#52c41a" />
     </Space>
@@ -92,8 +72,8 @@ function Kart(props) {
       style={{
         display: "flex",
       }}>
-      {globalKartDetails &&
-        globalKartDetails.map(({ id, key, name, customModel = {}, description, price, size,quantity=1 }, index) => {
+      {items &&
+        items.map(({ id, name, customModel = {}, description, price, size, basePrice , quantity=1 }, index) => {
           return (
             <Collapse
               bordered={false}
@@ -101,7 +81,7 @@ function Kart(props) {
               style={{
                 background: token.colorBgContainer,
               }}>
-              <Panel header={`${index + 1}. ${name}`} key={index+1} extra={genExtra(id,price,quantity)} style={panelStyle}>
+              <Panel header={`${index + 1}. ${name}`} key={index+1} extra={genExtra(id,basePrice)} style={panelStyle}>
                 <p>
                   <span style={{ fontWeight: "800", color: "#2E2E2E" }}>Description:</span> {description}
                 </p>
