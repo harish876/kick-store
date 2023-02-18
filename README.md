@@ -4,7 +4,7 @@ Concept Shoe Store with 3D renderings using three and react fiber
 @Todo
 1. Make Sections Mobile Responsive
 2. Add login/signup features too
-3. Refactor loading 3D models to next js (SSR)
+3. Refactor project to next js (SSR)
 
 Demo:
 1. Scroll down to the Carousel
